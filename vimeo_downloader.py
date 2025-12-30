@@ -25,12 +25,11 @@ class Colors:
 
 def print_header(text):
     banner = f"""
-{Colors.NEON_PINK}    ██╗   ██╗██╗███╗   ███╗███████╗ ██████╗     ███████╗ █████╗ ███████╗██╗   ██╗
-    ██║   ██║██║████╗ ████║██╔════╝██╔═══██╗    ██╔════╝██╔══██╗██╔════╝╚██╗ ██╔╝
-    ██║   ██║██║██╔████╔██║█████╗  ██║   ██║    █████╗  ███████║███████╗ ╚████╔╝ 
-    ╚██╗ ██╔╝██║██║╚██╔╝██║██╔══╝  ██║   ██║    ██╔══╝  ██╔══██║╚════██║  ╚██╔╝  
-     ╚████╔╝ ██║██║ ╚═╝ ██║███████╗╚██████╔╝    ███████╗██║  ██║███████║   ██║   
-      ╚═══╝  ╚═╝╚═╝     ╚═╝╚══════╝ ╚═════╝     ╚══════╝╚═╝  ╚═╝╚══════╝   ╚═╝   {Colors.ENDC}
+{Colors.NEON_PINK}    <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+    <<                                                                  <<
+    <<   [ SIGNAL UNLOCKED ]   [ DATA FREED ]   [ NO CHAINS ]           <<
+    <<                                                                  <<
+    <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<{Colors.ENDC}
     """
     print(banner)
     print(f"{Colors.NEON_CYAN}{Colors.BOLD}   >>> SYSTEM: {text.upper()} <<<{Colors.ENDC}")
@@ -59,7 +58,7 @@ def print_step(number, text):
     print(f"{Colors.NEON_BLUE}{Colors.BOLD}[STEP {number}]{Colors.ENDC} {text}")
 
 def ask_yes_no(question):
-    """Pregunta sí/no al usuario."""
+    \"\"\"Pregunta sí/no al usuario.\"\"\"
     while True:
         response = input(f"{Colors.NEON_YELLOW}[?] {question} (s/n): {Colors.ENDC}").strip().lower()
         if response in ['s', 'si', 'sí', 'y', 'yes']:
@@ -69,7 +68,7 @@ def ask_yes_no(question):
         print_warning("Por favor responde 's' o 'n'")
 
 def run_command(command, capture_output=True):
-    """Ejecuta un comando y retorna el resultado."""
+    \"\"\"Ejecuta un comando y retorna el resultado.\"\"\"
     try:
         result = subprocess.run(
             command,
@@ -82,7 +81,7 @@ def run_command(command, capture_output=True):
         return False, "", str(e)
 
 def check_python_version():
-    """Verifica que Python sea 3.8+"""
+    \"\"\"Verifica que Python sea 3.8+\"\"\"
     version = sys.version_info
     if version.major < 3 or (version.major == 3 and version.minor < 8):
         print_error(f"Se requiere Python 3.8+. Versión actual: {version.major}.{version.minor}")
@@ -91,7 +90,7 @@ def check_python_version():
     return True
 
 def check_pip():
-    """Verifica que pip esté instalado."""
+    \"\"\"Verifica que pip esté instalado.\"\"\"
     success, stdout, _ = run_command("pip3 --version")
     if success:
         print_success("pip está instalado")
@@ -106,7 +105,7 @@ def check_pip():
     return False
 
 def check_yt_dlp():
-    """Verifica si yt-dlp está instalado."""
+    \"\"\"Verifica si yt-dlp está instalado.\"\"\"
     success, stdout, _ = run_command("yt-dlp --version")
     if success:
         version = stdout.strip()
@@ -116,7 +115,7 @@ def check_yt_dlp():
     return False
 
 def check_curl_cffi():
-    """Verifica si curl-cffi está instalado (necesario para impersonación)."""
+    \"\"\"Verifica si curl-cffi está instalado (necesario para impersonación).\"\"\"
     try:
         import curl_cffi
         print_success("curl-cffi está instalado")
@@ -126,7 +125,7 @@ def check_curl_cffi():
         return False
 
 def check_ffmpeg():
-    """Verifica si ffmpeg está instalado."""
+    \"\"\"Verifica si ffmpeg está instalado.\"\"\"
     if shutil.which("ffmpeg"):
         success, stdout, _ = run_command("ffmpeg -version")
         if success:
@@ -137,7 +136,7 @@ def check_ffmpeg():
     return False
 
 def install_yt_dlp():
-    """Instala yt-dlp."""
+    \"\"\"Instala yt-dlp.\"\"\"
     print_info("Instalando yt-dlp...")
     success, _, stderr = run_command("pip3 install -U yt-dlp", capture_output=False)
     if not success:
@@ -145,7 +144,7 @@ def install_yt_dlp():
     return success
 
 def install_curl_cffi():
-    """Instala curl-cffi."""
+    \"\"\"Instala curl-cffi.\"\"\"
     print_info("Instalando curl-cffi...")
     success, _, _ = run_command("pip3 install curl-cffi", capture_output=False)
     if not success:
@@ -153,9 +152,9 @@ def install_curl_cffi():
     return success
 
 def install_ffmpeg():
-    """Proporciona instrucciones para instalar ffmpeg."""
+    \"\"\"Proporciona instrucciones para instalar ffmpeg.\"\"\"
     print_warning("\nffmpeg debe instalarse manualmente:")
-    print(f"""
+    print(f\"\"\"
 {Colors.NEON_CYAN}En Ubuntu/Debian:{Colors.ENDC}
     sudo apt update && sudo apt install ffmpeg
 
@@ -168,15 +167,15 @@ def install_ffmpeg():
 {Colors.NEON_CYAN}En macOS (con Homebrew):{Colors.ENDC}
     brew install ffmpeg
 
-{Colors.CYAN}En Windows:{Colors.ENDC}
+{Colors.NEON_CYAN}En Windows:{Colors.ENDC}
     Descarga desde: https://ffmpeg.org/download.html
     O usa: choco install ffmpeg (con Chocolatey)
     O usa: winget install ffmpeg
-""")
+\"\"\")
     return False
 
 def check_dependencies():
-    """Verifica todas las dependencias necesarias."""
+    \"\"\"Verifica todas las dependencias necesarias.\"\"\"
     print_header("Verificando Dependencias")
     
     all_ok = True
@@ -210,7 +209,7 @@ def check_dependencies():
     return all_ok, missing
 
 def install_missing(missing):
-    """Instala las dependencias faltantes."""
+    \"\"\"Instala las dependencias faltantes.\"\"\"
     print_header("Instalación de Dependencias")
     
     if not missing:
@@ -247,48 +246,48 @@ def install_missing(missing):
     return success
 
 def show_browser_instructions():
-    """Muestra las instrucciones para obtener el hash del video."""
+    \"\"\"Muestra las instrucciones para obtener el hash del video.\"\"\"
     print_header("Instrucciones para Obtener el Hash")
     
-    print(f"""
+    print(f\"\"\"
 {Colors.BOLD}Para descargar videos de Vimeo protegidos, necesitas obtener el "hash" del video.{Colors.ENDC}
-{Colors.CYAN}Este hash es un código que aparece en la URL cuando el video se reproduce.{Colors.ENDC}
+{Colors.NEON_CYAN}Este hash es un código que aparece en la URL cuando el video se reproduce.{Colors.ENDC}
 
-{Colors.YELLOW}{'─'*60}{Colors.ENDC}
-""")
+{Colors.NEON_YELLOW}{'─'*60}{Colors.ENDC}
+\"\"\")
     
-    print(f"""{Colors.BOLD}{Colors.GREEN}✨ MÉTODO MÁS FÁCIL - Ver Código Fuente:{Colors.ENDC}
-{Colors.CYAN}─────────────────────────────────────────{Colors.ENDC}
+    print(f\"\"\"{Colors.BOLD}{Colors.NEON_GREEN}✨ MÉTODO MÁS FÁCIL - Ver Código Fuente:{Colors.ENDC}
+{Colors.NEON_CYAN}─────────────────────────────────────────{Colors.ENDC}
 1. Abre el video de Vimeo en tu navegador (ej: https://vimeo.com/1133688762)
 2. Presiona {Colors.BOLD}Ctrl+U{Colors.ENDC} para ver el código fuente de la página
 3. Presiona {Colors.BOLD}Ctrl+F{Colors.ENDC} para buscar
 4. Busca: {Colors.BOLD}?h={Colors.ENDC}
-5. Encontrarás URLs como: {Colors.CYAN}https://player.vimeo.com/video/1133688762?h={Colors.GREEN}75891db44a{Colors.ENDC}
+5. Encontrarás URLs como: {Colors.NEON_CYAN}https://player.vimeo.com/video/1133688762?h={Colors.NEON_GREEN}75891db44a{Colors.ENDC}
 6. Copia el valor después de {Colors.BOLD}h={Colors.ENDC}
-""")
+\"\"\")
 
-    print(f"""{Colors.BOLD}{Colors.BLUE}🔍 MÉTODO ALTERNATIVO - Inspeccionar Elemento:{Colors.ENDC}
-{Colors.CYAN}──────────────────────────────────────────────{Colors.ENDC}
+    print(f\"\"\"{Colors.BOLD}{Colors.NEON_BLUE}🔍 MÉTODO ALTERNATIVO - Inspeccionar Elemento:{Colors.ENDC}
+{Colors.NEON_CYAN}──────────────────────────────────────────────{Colors.ENDC}
 1. En la página del video, presiona {Colors.BOLD}F12{Colors.ENDC} (DevTools)
 2. En el panel de Elements, presiona {Colors.BOLD}Ctrl+F{Colors.ENDC}
 3. Busca: {Colors.BOLD}?h={Colors.ENDC} o {Colors.BOLD}embedUrl{Colors.ENDC}
 4. Copia el hash que aparece después de {Colors.BOLD}h={Colors.ENDC}
-""")
+\"\"\")
 
-    print(f"""{Colors.YELLOW}{'─'*60}{Colors.ENDC}
+    print(f\"\"\"{Colors.NEON_YELLOW}{'─'*60}{Colors.ENDC}
 {Colors.BOLD}EJEMPLO:{Colors.ENDC}
 
 En el código fuente encontrarás algo como:
-{Colors.CYAN}"embedUrl":"https://player.vimeo.com/video/1133688762?h={Colors.GREEN}75891db44a{Colors.CYAN}"{Colors.ENDC}
-                                                            {Colors.GREEN}^^^^^^^^^^{Colors.ENDC}
-                                                            {Colors.GREEN}Este es el hash{Colors.ENDC}
+{Colors.NEON_CYAN}\"embedUrl\":\"https://player.vimeo.com/video/1133688762?h={Colors.NEON_GREEN}75891db44a{Colors.NEON_CYAN}\"{Colors.ENDC}
+                                                            {Colors.NEON_GREEN}^^^^^^^^^^{Colors.ENDC}
+                                                            {Colors.NEON_GREEN}Este es el hash{Colors.ENDC}
 
-{Colors.BOLD}Lo que necesitas copiar es:{Colors.ENDC} {Colors.GREEN}75891db44a{Colors.ENDC}
-{Colors.YELLOW}{'─'*60}{Colors.ENDC}
-""")
+{Colors.BOLD}Lo que necesitas copiar es:{Colors.ENDC} {Colors.NEON_GREEN}75891db44a{Colors.ENDC}
+{Colors.NEON_YELLOW}{'─'*60}{Colors.ENDC}
+\"\"\")
 
 def extract_video_id(url):
-    """Extrae el ID del video de una URL de Vimeo."""
+    \"\"\"Extrae el ID del video de una URL de Vimeo.\"\"\"
     patterns = [
         r'vimeo\.com/(\d+)',
         r'player\.vimeo\.com/video/(\d+)',
@@ -303,16 +302,16 @@ def extract_video_id(url):
     return None
 
 def get_user_input():
-    """Obtiene la información necesaria del usuario."""
+    \"\"\"Obtiene la información necesaria del usuario.\"\"\"
     print_header("Información del Video")
     
     # URL o ID del video
     while True:
         print_info("Introduce la URL de Vimeo o el ID del video")
-        print(f"  {Colors.CYAN}Ejemplos:{Colors.ENDC}")
+        print(f"  {Colors.NEON_CYAN}Ejemplos:{Colors.ENDC}")
         print(f"    - https://vimeo.com/1142702955")
         print(f"    - 1142702955")
-        url = input(f"\n{Colors.YELLOW}URL o ID: {Colors.ENDC}").strip()
+        url = input(f"\\n{Colors.NEON_YELLOW}URL o ID: {Colors.ENDC}").strip()
         
         video_id = extract_video_id(url)
         if video_id:
@@ -324,10 +323,10 @@ def get_user_input():
     # Hash
     print()
     print_info("Introduce el hash del video (el valor de 'h=' que obtuviste)")
-    print(f"  {Colors.CYAN}Ejemplo: ad106da4bf{Colors.ENDC}")
+    print(f"  {Colors.NEON_CYAN}Ejemplo: ad106da4bf{Colors.ENDC}")
     
     while True:
-        video_hash = input(f"\n{Colors.YELLOW}Hash (h=): {Colors.ENDC}").strip()
+        video_hash = input(f"\\n{Colors.NEON_YELLOW}Hash (h=): {Colors.ENDC}").strip()
         # Limpiar si el usuario pegó más de lo necesario
         if 'h=' in video_hash:
             match = re.search(r'h=([a-zA-Z0-9]+)', video_hash)
@@ -343,20 +342,20 @@ def get_user_input():
     # Nombre del archivo
     print()
     print_info("Nombre para el archivo de salida (sin extensión)")
-    print(f"  {Colors.CYAN}Deja vacío para usar 'video_vimeo_{video_id}'{Colors.ENDC}")
+    print(f"  {Colors.NEON_CYAN}Deja vacío para usar 'video_vimeo_{video_id}'{Colors.ENDC}")
     
-    filename = input(f"\n{Colors.YELLOW}Nombre: {Colors.ENDC}").strip()
+    filename = input(f"\\n{Colors.NEON_YELLOW}Nombre: {Colors.ENDC}").strip()
     if not filename:
         filename = f"video_vimeo_{video_id}"
     
     # Limpiar caracteres no válidos del nombre
-    filename = re.sub(r'[<>:"/\\|?*]', '_', filename)
+    filename = re.sub(r'[<>:\"/\\\\|?*]', '_', filename)
     print_success(f"Archivo: {filename}.mp4")
     
     return video_id, video_hash, filename
 
 def download_video(video_id, video_hash, filename):
-    """Descarga el video usando yt-dlp."""
+    \"\"\"Descarga el video usando yt-dlp.\"\"\"
     print_header("Descargando Video")
     
     player_url = f"https://player.vimeo.com/video/{video_id}?h={video_hash}"
@@ -374,7 +373,7 @@ def download_video(video_id, video_hash, filename):
         player_url
     ]
     
-    print(f"{Colors.CYAN}Ejecutando: {' '.join(command)}{Colors.ENDC}\n")
+    print(f"{Colors.NEON_CYAN}Ejecutando: {' '.join(command)}{Colors.ENDC}\\n")
     
     try:
         process = subprocess.Popen(
@@ -420,7 +419,7 @@ def download_video(video_id, video_hash, filename):
         return False
 
 def main():
-    """Función principal."""
+    \"\"\"Función principal.\"\"\"
     print_header("Vimeo Video Downloader")
     print_credits()
     print(f"{Colors.NEON_CYAN}Herramienta para descargar videos de Vimeo protegidos{Colors.ENDC}")
@@ -444,7 +443,7 @@ def main():
     # Mostrar instrucciones
     show_browser_instructions()
     
-    input(f"{Colors.YELLOW}Presiona Enter cuando hayas obtenido el hash...{Colors.ENDC}")
+    input(f"{Colors.NEON_YELLOW}Presiona Enter cuando hayas obtenido el hash...{Colors.ENDC}")
     
     # Obtener información del usuario
     video_id, video_hash, filename = get_user_input()
@@ -452,10 +451,10 @@ def main():
     # Confirmar
     print()
     print_info("Resumen:")
-    print(f"  • Video ID: {Colors.GREEN}{video_id}{Colors.ENDC}")
-    print(f"  • Hash: {Colors.GREEN}{video_hash}{Colors.ENDC}")
-    print(f"  • Archivo: {Colors.GREEN}{filename}.mp4{Colors.ENDC}")
-    print(f"  • Carpeta: {Colors.GREEN}{os.getcwd()}{Colors.ENDC}")
+    print(f"  • Video ID: {Colors.NEON_GREEN}{video_id}{Colors.ENDC}")
+    print(f"  • Hash: {Colors.NEON_GREEN}{video_hash}{Colors.ENDC}")
+    print(f"  • Archivo: {Colors.NEON_GREEN}{filename}.mp4{Colors.ENDC}")
+    print(f"  • Carpeta: {Colors.NEON_GREEN}{os.getcwd()}{Colors.ENDC}")
     print()
     
     if not ask_yes_no("¿Iniciar descarga?"):
@@ -471,7 +470,7 @@ def main():
         if ask_yes_no("¿Deseas descargar otro video?"):
             # Reiniciar el proceso de descarga
             show_browser_instructions()
-            input(f"{Colors.YELLOW}Presiona Enter cuando hayas obtenido el hash...{Colors.ENDC}")
+            input(f"{Colors.NEON_YELLOW}Presiona Enter cuando hayas obtenido el hash...{Colors.ENDC}")
             video_id, video_hash, filename = get_user_input()
             download_video(video_id, video_hash, filename)
     else:
